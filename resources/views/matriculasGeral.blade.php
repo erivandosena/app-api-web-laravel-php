@@ -1,53 +1,65 @@
-<div class="container">
-    <div class="row justify-content-center">
-        <!-- <div class="col-md-8" > -->
-        <div>
-            <div class="card">
-                <div class="card-header">Lista de Matrículas</div>
+@extends('layouts.layout_padrao')
+    @section('content')
+        <!-- restante do conteúdo -->
+        <div class="container-fluid">
+            <div class="row justify-content-md-center">
+                <div class="col">
+                    <div class="col-md-auto">
+                        <div class="card" style="width: 85rem;">
+                            <div class="card-header">Lista de Matrículas</div>
+                                <div class="card-body">
+                                    <h5 class="card-title"></h5>
+                                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                                    <p class="card-text"></p>
 
-                    <div class="card-body">
-
-                        <hr />
-                        <?php
-                        //echo sizeof($dados);
-                        ?>
-                        @if(!$dados)
-                        <div class="alert alert-warning">
-                            <p><strong>Matrícula não localizada!</strong><br />Realize matrículas dos alunos cadastrados.</p>
+                                    <?php
+                                    //echo sizeof($dados);
+                                    ?>
+                                    @if(!$dados)
+                                    <div class="alert alert-warning">
+                                        <p><strong>Matrícula não localizada!</strong><br />Realize matrículas dos alunos cadastrados.</p>
+                                    </div>
+                                    @else
+                                    <table class="table table-sm">
+                                        <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Matrícula</th>
+                                            <th scope="col">Curso</th>
+                                            <th scope="col">Série</th>
+                                            <th scope="col">Turma</th>
+                                            <th scope="col">Turno</th>
+                                            <th scope="col">Ano Letivo</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                        </thead>
+                                        @foreach($dados as $linha)
+                                        <tbody>
+                                        <tr>
+                                            <th>{{ $linha->nome_aluno }}</th>
+                                            <td>{{ $linha->matricula }}</td>
+                                            <td>{{ $linha->nome_curso }}</td>
+                                            <td>{{ $linha->nome_serie }}</td>
+                                            <td>{{ $linha->nome_turma }}</td>
+                                            <td>{{ $linha->nome_turno }}</td>
+                                            <td>{{ $linha->ano_letivo}}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='{{ route('boletimEscolar', $linha->cod_matr) }}'">Visualizar Boletim</button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                        @endforeach
+                                    </table>
+                                    <hr />
+                                    <!-- controle paginacao -->
+                                    <!-- {{ $dados->render() }} -->
+                                    {{ $dados->links("pagination::bootstrap-4") }}
+                                    </div>
+                                    @endif
+                                </div>
                         </div>
-                        @else
-                        <div style="border:0px solid #ccc; height: auto; width: auto; overflow:hidden;">
-                        <li style="list-style: none; font-weight: bold">
-                            <span style="display: inline-block; width: 400px; padding: 2px;">Nome</span>
-                            <span style="display: inline-block; width: 135px; padding: 2px;">Matrícua</span>
-                            <span style="display: inline-block; width: 200px; padding: 2px;">Curso</span>
-                            <span style="display: inline-block; width: 100px; padding: 2px;">Série</span>
-                            <span style="display: inline-block; width: 50px; padding: 2px;">Turma</span>
-                            <span style="display: inline-block; width: 80px; padding: 2px;">Turno</span>
-                            <span style="display: inline-block; width: 80px; padding: 2px;">Ano Letivo</span>
-                            <span style="display: inline-block; width: 145px; padding: 2px;"></span>
-                        </li>
-                        @foreach($dados as $linha)
-                        <li style="list-style: none;">
-                            <span style="display: inline-block; width: 400px; padding: 2px;">{{ $linha->nome_aluno }}</span>
-                            <span style="display: inline-block; width: 135px; padding: 2px;">{{ $linha->matricula }}</span>
-                            <span style="display: inline-block; width: 200px; padding: 2px;">{{ $linha->nome_curso }}</span>
-                            <span style="display: inline-block; width: 100px; padding: 2px;">{{ $linha->nome_serie }}</span>
-                            <span style="display: inline-block; width: 50px; padding: 2px;">{{ $linha->nome_turma }}</span>
-                            <span style="display: inline-block; width: 80px; padding: 2px;">{{ $linha->nome_turno }}</span>
-                            <span style="display: inline-block; width: 80px; padding: 2px;">{{ $linha->ano_letivo}}</span>
-                            <span style="display: inline-block; width: 110x; padding: 2px;"><a href="{{ route('boletimEscolar', $linha->cod_matr) }}" class="btn btn-xs btn-info pull-right">Visualizar Boletim</a></span>
-                        </li>
-                        @endforeach
-                        </div>
-                        @endif
-                        <!-- paginacao-->
-                        {{ $dados->render() }}
-                        {{$dados->links("pagination::bootstrap-4")}}
-
                     </div>
-                    <hr />
+                </div>
             </div>
         </div>
-    </div>
-</div>
+@stop
