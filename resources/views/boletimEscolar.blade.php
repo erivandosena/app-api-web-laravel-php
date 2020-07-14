@@ -21,11 +21,11 @@
                     @if(!$dados)
                     <div class="alert alert-warning">
                         <p><strong>Boletim não localizado!</strong><br />É necessário listar as matrículas para selecionar uma visualização do boletim.</p>
-                    </div> 
+                    </div>
                     @else
                     <p style="padding: 10px;">
                     <img src="data:image/png;base64, {{ $dados[0]->fotografia }}" alt="Fotografia 3x4" style="border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: 120px; float: left; margin: 0px 10px 5px 0px;" />
-                    <strong> Aluno:</strong> {{ $dados[0]->nome_aluno }} 
+                    <strong> Aluno:</strong> {{ $dados[0]->nome_aluno }}
                     <strong> Matrícula:</strong> {{ $dados[0]->matricula }} <br />
                     <strong> Curso:</strong> {{ $dados[0]->nome_curso }} <br />
                     <strong> Ano:</strong> {{ $dados[0]->nome_serie }} <br />
@@ -65,7 +65,7 @@
                     </li>
                     @endforeach
                     <br />
-                    <a href="{{ route('matriculas', $dados[0]->matricula) }}" class="btn btn-xs btn-info pull-right">Voltar</a>
+                    <a href="{{ route('matriculasAluno', $dados[0]->matricula) }}" class="btn btn-xs btn-info pull-right">Matrículas do Aluno</a>
                     </div>
                     @endif
                 </div>

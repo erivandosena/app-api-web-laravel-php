@@ -4563,6 +4563,64 @@
             "time": "2020-06-23T15:40:43+00:00"
         },
         {
+            "name": "laravel/envoy",
+            "version": "v2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/envoy.git",
+                "reference": "ddf68dee52df5df7c6fbe9c12c3580a2ae2ca1ae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/envoy/zipball/ddf68dee52df5df7c6fbe9c12c3580a2ae2ca1ae",
+                "reference": "ddf68dee52df5df7c6fbe9c12c3580a2ae2ca1ae",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2",
+                "symfony/console": "^4.3|^5.0",
+                "symfony/process": "^4.3|^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "suggest": {
+                "ext-posix": "Required to determine the System user on Unix systems."
+            },
+            "bin": [
+                "bin/envoy"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Envoy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Elegant SSH tasks for PHP.",
+            "keywords": [
+                "laravel",
+                "ssh"
+            ],
+            "time": "2020-06-30T20:45:52+00:00"
+        },
+        {
             "name": "mockery/mockery",
             "version": "1.3.2",
             "source": {

@@ -21,4 +21,6 @@ Route::get('/', function () {
 
 Route::get('/boletim/{id}', 'BoletimController@boletimNotas')->name('boletimEscolar');
 
-Route::get('/matriculas/{nome_ou_matricula}', 'MatriculaController@listaMatriculas')->name('matriculas');
+Route::get('/matriculas_aluno/{nome_ou_matricula}', 'MatriculaController@listaMatriculas')->name('matriculasAluno');
+
+Route::get('/matriculas', 'MatriculaController@listaTodasMatriculas')->name('matriculasGeral');
