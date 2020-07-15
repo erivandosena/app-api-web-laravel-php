@@ -17,10 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/principal', 'PrincipalController@index')->name('principal');
 
-Route::get('/boletim/{id}', 'BoletimController@boletimNotas')->name('boletimEscolar');
+Route::get('/boletim/{id}', 'BoletimController@boletimNotas')->name('boletimEscolar')->middleware('auth');;
 
-Route::get('/matriculas_aluno/{nome_ou_matricula}', 'MatriculaController@listaMatriculas')->name('matriculasAluno');
+Route::get('/matriculas_aluno/{nome_ou_matricula}', 'MatriculaController@listaMatriculas')->name('matriculasAluno')->middleware('auth');;
 
-Route::get('/matriculas', 'MatriculaController@listaTodasMatriculas')->name('matriculasGeral');
+Route::get('/matriculas', 'MatriculaController@listaTodasMatriculas')->name('matriculasGeral')->middleware('auth');;
+
+// Auth::routes(['register' => false]);
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/home', 'PrincipalController@index')->name('home')->middleware('auth');

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>GEES</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -75,19 +75,21 @@
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
+                        <!--
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
                         @endif
+                        -->
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    GEES <br />
+                    {{ config('app.name', 'Laravel') }} <br />
                     <span>Gerenciamento Escolar</span>
                 </div>
-                <button type="button" class="btn btn-light btn-lg" onclick="location.href='{{ route('principal') }}'">ENTRAR</button>
+                <button type="button" class="btn btn-light btn-lg" onclick="location.href='{{ route('home') }}'">ENTRAR</button>
 
                 <!--
                 <div class="links">
