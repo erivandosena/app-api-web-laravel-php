@@ -44,7 +44,7 @@ class MatriculaController extends MasterController
         ->join('letivo','letivo.cod_leti','matricula.cod_leti')
         ->where('aluno.nome_aluno', $nome_ou_matricula)
         ->orWhere('matricula.matricula', $nome_ou_matricula)
-        ->orderBy('letivo.ano_letivo')
+        ->orderByDesc('letivo.ano_letivo')
         ->get();
 
         if($dados->isEmpty())

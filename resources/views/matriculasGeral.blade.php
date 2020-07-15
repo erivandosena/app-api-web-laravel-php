@@ -6,7 +6,7 @@
                 <div class="col">
                     <div class="col-md-auto">
                         <div class="card" style="width: 85rem;">
-                            <div class="card-header">Lista de Matrículas</div>
+                            <div class="card-header">Lista Geral de Matrículas</div>
                                 <div class="card-body">
                                     <h5 class="card-title"></h5>
                                     <h6 class="card-subtitle mb-2 text-muted"></h6>
@@ -54,7 +54,6 @@
                                     <!-- controle paginacao -->
                                     <!-- {{ $dados->render() }} -->
                                     {{ $dados->links("pagination::bootstrap-4") }}
-                                    </div>
                                     @endif
                                 </div>
                         </div>
