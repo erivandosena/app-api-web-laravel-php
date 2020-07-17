@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response; 
+use Illuminate\Http\Response;
 use App\Models\Nota;
 
 class NotaController extends MasterController
@@ -12,8 +12,9 @@ class NotaController extends MasterController
 
     public function __construct(Nota $nota, Request $request)
     {
-        $this->model = $nota; 
-        $this->request = $request;       
+        $this->middleware('auth:api');
+        $this->model = $nota;
+        $this->request = $request;
     }
 
     /**
@@ -23,11 +24,11 @@ class NotaController extends MasterController
      */
     public function index() {
         $dados = $this->model->paginate(10);
-        return response()->json($dados, Response::HTTP_OK, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE); 
-        //return response()->json($dados, Response::HTTP_OK); 
+        return response()->json($dados, Response::HTTP_OK, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
+        //return response()->json($dados, Response::HTTP_OK);
     }
 
-    public function notaCompleta($id) 
+    public function notaCompleta($id)
     {
         if(!$dados = $this->model->with(['boletim','disciplina'])->find($id)) {
             return response()->json(['erro' => 'Recurso não locaizado.'], Response::HTTP_NOT_FOUND);

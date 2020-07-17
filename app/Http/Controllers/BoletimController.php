@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response; 
+use Illuminate\Http\Response;
 use App\Models\Boletim;
 use Illuminate\Support\Facades\DB;
 
@@ -13,11 +13,12 @@ class BoletimController extends MasterController
 
     public function __construct(Boletim $boletim, Request $request)
     {
-        $this->model = $boletim; 
-        $this->request = $request;       
+        $this->middleware('auth:api');
+        $this->model = $boletim;
+        $this->request = $request;
     }
 
-    public function boletimCompleto($id) 
+    public function boletimCompleto($id)
     {
         if(!$dados = $this->model->with(['matricula','nota'])->find($id)) {
             return response()->json(['erro' => 'Recurso não locaizado.'], Response::HTTP_NOT_FOUND);
@@ -49,7 +50,7 @@ class BoletimController extends MasterController
         ->join('disciplina','disciplina.cod_disc','nota.cod_disc')
         ->join('aluno','aluno.cod_alun','matricula.cod_alun')
         ->join('curso','curso.cod_curs','matricula.cod_curs')
-        ->join('serie','serie.cod_seri','matricula.cod_seri') 
+        ->join('serie','serie.cod_seri','matricula.cod_seri')
         ->join('turno','turno.cod_turn','matricula.cod_turn')
         ->join('turma','turma.cod_turm','matricula.cod_turm')
         ->join('letivo','letivo.cod_leti','matricula.cod_leti')

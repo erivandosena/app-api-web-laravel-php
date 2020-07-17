@@ -11,27 +11,28 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 */
 use Illuminate\Http\Request;
-use Illuminate\Http\Response; 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use App\Http\Controllers\Controller;
+
 
 class MasterController extends Controller
 {
-    //use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index() {
+
         $dados = $this->model->all();
         //dd($dados);
-        //return response()->json($dados); 
-        return response()->json($dados, Response::HTTP_OK, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE); 
+        //return response()->json($dados);
+        return response()->json($dados, Response::HTTP_OK, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
         //return response(json_encode($dados), Response::HTTP_OK)->header('Content-Type', 'application/json;charset=UTF-8');
         //return response()->json($dados, Response::HTTP_OK);
-        
+
         /*
         if($dados->isEmpty())
             $dados=[];
@@ -131,7 +132,7 @@ class MasterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(!$dados = $this->model->find($id)) 
+        if(!$dados = $this->model->find($id))
             return response()->json(['erro' => 'Recurso não localizado.'], Response::HTTP_NOT_FOUND);
 
         $dataform = $request->all();
@@ -157,7 +158,7 @@ class MasterController extends Controller
      */
     public function destroy($id)
     {
-        if(!$dados = $this->model->find($id)) 
+        if(!$dados = $this->model->find($id))
             return response()->json(['erro' => 'Recurso não localizado.'], Response::HTTP_NOT_FOUND);
 
         $dados->delete();

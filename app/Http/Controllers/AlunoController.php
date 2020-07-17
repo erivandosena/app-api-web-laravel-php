@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response; 
+use Illuminate\Http\Response;
 use App\Models\Aluno;
 
 class AlunoController extends MasterController
@@ -12,8 +12,9 @@ class AlunoController extends MasterController
 
     public function __construct(Aluno $aluno, Request $request)
     {
-        $this->model = $aluno; 
-        $this->request = $request;       
+        $this->middleware('auth:api');
+        $this->model = $aluno;
+        $this->request = $request;
     }
 
 }

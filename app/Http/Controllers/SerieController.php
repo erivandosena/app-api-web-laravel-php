@@ -11,8 +11,9 @@ class SerieController extends MasterController
 
     public function __construct(Serie $serie, Request $request)
     {
-        $this->model = $serie; 
-        $this->request = $request;       
+        $this->middleware('auth:api');
+        $this->model = $serie;
+        $this->request = $request;
     }
 
 }

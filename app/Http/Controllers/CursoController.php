@@ -11,8 +11,9 @@ class CursoController extends MasterController
 
     public function __construct(Curso $curso, Request $request)
     {
-        $this->model = $curso; 
-        $this->request = $request;       
+        $this->middleware('auth:api');
+        $this->model = $curso;
+        $this->request = $request;
     }
 
 }
