@@ -11,7 +11,6 @@ class LetivoController extends MasterController
 
     public function __construct(Letivo $letivo, Request $request)
     {
-        $this->middleware('api');
         $this->model = $letivo;
         $this->request = $request;
     }

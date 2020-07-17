@@ -11,7 +11,6 @@ class UsuarioController extends MasterController
 
     public function __construct(Usuario $usuario, Request $request)
     {
-        $this->middleware('api');
         $this->model = $usuario;
         $this->request = $request;
     }

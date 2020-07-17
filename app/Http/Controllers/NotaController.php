@@ -12,7 +12,6 @@ class NotaController extends MasterController
 
     public function __construct(Nota $nota, Request $request)
     {
-        $this->middleware('api');
         $this->model = $nota;
         $this->request = $request;
     }

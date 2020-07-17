@@ -11,7 +11,6 @@ class EscolaController extends MasterController
 
     public function __construct(Escola $escola, Request $request)
     {
-        $this->middleware('api');
         $this->model = $escola;
         $this->request = $request;
     }

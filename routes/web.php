@@ -19,10 +19,10 @@ Route::get('/', function () {
 
 Auth::routes(); /* Auth::routes(['register' => false]); */
 
-Route::middleware('auth')->get('/boletim/{id}', 'BoletimController@boletimNotas')->name('boletimEscolar');
+Route::middleware('auth')->get('boletim/{id}', 'BoletimController@boletimNotas')->name('boletimEscolar');
 
-Route::middleware('auth')->get('/matriculas_aluno/{nome_ou_matricula}',  'MatriculaController@listaMatriculas')->name('matriculasAluno');
+Route::middleware('auth')->get('matriculas_aluno/{nome_ou_matricula}',  'MatriculaController@listaMatriculas')->name('matriculasAluno');
 
-Route::middleware('auth')->get('/matriculas',  'MatriculaController@listaTodasMatriculas')->name('matriculasGeral');
+Route::middleware('auth')->get('matriculas',  'MatriculaController@listaTodasMatriculas')->name('matriculasGeral');
 
-Route::middleware('auth')->get('/home', 'PrincipalController@index')->name('home');
+Route::middleware('auth')->get('home', 'PrincipalController@index')->name('home');

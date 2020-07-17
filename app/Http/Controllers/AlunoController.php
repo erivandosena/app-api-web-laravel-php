@@ -12,7 +12,6 @@ class AlunoController extends MasterController
 
     public function __construct(Aluno $aluno, Request $request)
     {
-        $this->middleware('api');
         $this->model = $aluno;
         $this->request = $request;
     }

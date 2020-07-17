@@ -11,7 +11,6 @@ class CarneController extends MasterController
 
     public function __construct(Carne $carne, Request $request)
     {
-        $this->middleware('api');
         $this->model = $carne;
         $this->request = $request;
     }

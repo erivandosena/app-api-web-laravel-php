@@ -11,7 +11,6 @@ class ContratoController extends MasterController
 
     public function __construct(Contrato $contrato, Request $request)
     {
-        $this->middleware('api');
         $this->model = $contrato;
         $this->request = $request;
     }

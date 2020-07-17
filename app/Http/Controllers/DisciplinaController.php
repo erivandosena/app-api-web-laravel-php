@@ -11,7 +11,7 @@ class DisciplinaController extends MasterController
 
     public function __construct(Disciplina $disciplina, Request $request)
     {
-        $this->middleware('api');
+
         $this->model = $disciplina;
         $this->request = $request;
     }

@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+$versao_api = 'v1';
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -21,7 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // User
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::post('register', 'JWTAuthController@register');
     Route::post('login', 'JWTAuthController@login');
@@ -33,7 +35,7 @@ Route::group([
 //Aluno
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('aluno/lista', 'AlunoController');
     Route::get('aluno/{id}', 'AlunoController@show');
@@ -45,7 +47,7 @@ Route::group([
 //Curso
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('curso/lista', 'CursoController');
     Route::get('curso/{id}', 'CursoController@show');
@@ -57,7 +59,7 @@ Route::group([
 //Serie
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('serie/lista', 'SerieController');
     Route::get('serie/{id}', 'SerieController@show');
@@ -69,7 +71,7 @@ Route::group([
 //Turno
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('turno/lista', 'TurnoController');
     Route::get('turno/{id}', 'TurnoController@show');
@@ -81,7 +83,7 @@ Route::group([
 //Turma
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('turma/lista', 'TurmaController');
     Route::get('turma/{id}', 'TurmaController@show');
@@ -93,7 +95,7 @@ Route::group([
 //Letivo
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('letivo/lista', 'LetivoController');
     Route::get('letivo/{id}', 'LetivoController@show');
@@ -104,8 +106,8 @@ Route::group([
 
 //Matricula
 Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
+    'middleware' => 'auth:api',
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('matricula/lista', 'MatriculaController');
     Route::get('matricula/{id}', 'MatriculaController@show');
@@ -119,7 +121,7 @@ Route::group([
 //Disciplina
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('disciplina/lista', 'DisciplinaController');
     Route::get('disciplina/{id}', 'DisciplinaController@show');
@@ -131,7 +133,7 @@ Route::group([
 //Boletim
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('boletim/lista', 'BoletimController');
     Route::get('boletim/{id}', 'BoletimController@show');
@@ -146,7 +148,7 @@ Route::group([
 //Nota
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('nota/lista', 'NotaController');
     Route::get('nota/{id}', 'NotaController@show');
@@ -160,7 +162,7 @@ Route::group([
 //Escola
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('escola/lista', 'EscolaController');
     Route::get('escola/{id}', 'EscolaController@show');
@@ -172,7 +174,7 @@ Route::group([
 //Usuario
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix' => $versao_api
 ], function ($router) {
     Route::apiResource('usuario/lista', 'UsuarioController');
     Route::get('usuario/{id}', 'UsuarioController@show');
