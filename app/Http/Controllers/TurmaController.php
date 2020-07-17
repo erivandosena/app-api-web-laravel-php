@@ -11,7 +11,7 @@ class TurmaController extends MasterController
 
     public function __construct(Turma $turma, Request $request)
     {
-        $this->middleware('auth:api');
+        $this->middleware('api');
         $this->model = $turma;
         $this->request = $request;
     }

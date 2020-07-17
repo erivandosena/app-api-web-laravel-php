@@ -13,7 +13,7 @@ class MatriculaController extends MasterController
 
     public function __construct(Matricula $matricula, Request $request)
     {
-        $this->middleware('auth:api');
+        $this->middleware('api');
         $this->model = $matricula;
         $this->request = $request;
     }

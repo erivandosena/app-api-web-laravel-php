@@ -13,7 +13,7 @@ class BoletimController extends MasterController
 
     public function __construct(Boletim $boletim, Request $request)
     {
-        $this->middleware('auth:api');
+        $this->middleware('api');
         $this->model = $boletim;
         $this->request = $request;
     }

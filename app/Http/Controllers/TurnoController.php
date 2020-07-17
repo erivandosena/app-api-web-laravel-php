@@ -11,7 +11,7 @@ class TurnoController extends MasterController
 
     public function __construct(Turno $turno, Request $request)
     {
-        $this->middleware('auth:api');
+        $this->middleware('api');
         $this->model = $turno;
         $this->request = $request;
     }
