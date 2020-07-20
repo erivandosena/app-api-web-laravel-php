@@ -33,6 +33,7 @@ class JWTAuthController extends Controller
             'name' => 'required|between:2,100',
             'email' => 'required|email|unique:users|max:50',
             'password' => 'required|confirmed|string|min:6',
+            'avatar' => 'string',
         ]);
 
         $user = User::create(array_merge(
@@ -41,7 +42,7 @@ class JWTAuthController extends Controller
                 ));
 
         return response()->json([
-            'message' => 'Successfully registered',
+            'message' => 'Registrado com sucesso!',
             'user' => $user
         ], 201);
     }
@@ -63,7 +64,7 @@ class JWTAuthController extends Controller
         }
 
         if (! $token = auth($this->guard)->attempt($validator->validated())) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Não autorizado!'], 401);
         }
 
         return $this->createNewToken($token);
@@ -88,7 +89,7 @@ class JWTAuthController extends Controller
     {
         auth($this->guard)->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return response()->json(['message' => 'Desconectado com sucesso!']);
     }
 
     /**
@@ -110,10 +111,12 @@ class JWTAuthController extends Controller
      */
     protected function createNewToken($token)
     {
+        $user = auth($this->guard)->user();
         return response()->json([
             'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth($this->guard)->factory()->getTTL() * 60
+            'token_type' => 'Bearer',
+            'expires_in' => auth($this->guard)->factory()->getTTL() * 60,
+            'user' => $user
         ]);
     }
 }
