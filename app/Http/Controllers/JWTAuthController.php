@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 //use Validator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 
@@ -38,7 +39,8 @@ class JWTAuthController extends Controller
 
         $user = User::create(array_merge(
                     $validator->validated(),
-                    ['password' => bcrypt($request->password)]
+                    //['password' => bcrypt($request->password)]
+                    ['password' => Hash::make($request->password)]
                 ));
 
         return response()->json([
