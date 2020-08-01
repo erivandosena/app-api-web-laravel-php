@@ -20,11 +20,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// User
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+// User/Login
+Route::group(['prefix' => $versao_api, 'middleware' => 'api'], function($router) {
     Route::post('register', 'JWTAuthController@register');
     Route::post('login', 'JWTAuthController@login');
     Route::post('logout', 'JWTAuthController@logout');
@@ -33,10 +30,7 @@ Route::group([
 });
 
 //Aluno
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('aluno/lista', 'AlunoController');
     Route::get('aluno/{id}', 'AlunoController@show');
     Route::post('aluno/insere', 'AlunoController@store');
@@ -45,10 +39,7 @@ Route::group([
 });
 
 //Curso
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('curso/lista', 'CursoController');
     Route::get('curso/{id}', 'CursoController@show');
     Route::post('curso/insere', 'CursoController@store');
@@ -57,10 +48,7 @@ Route::group([
 });
 
 //Serie
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('serie/lista', 'SerieController');
     Route::get('serie/{id}', 'SerieController@show');
     Route::post('serie/insere', 'SerieController@store');
@@ -69,10 +57,7 @@ Route::group([
 });
 
 //Turno
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('turno/lista', 'TurnoController');
     Route::get('turno/{id}', 'TurnoController@show');
     Route::post('turno/insere', 'TurnoController@store');
@@ -81,10 +66,7 @@ Route::group([
 });
 
 //Turma
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('turma/lista', 'TurmaController');
     Route::get('turma/{id}', 'TurmaController@show');
     Route::post('turma/insere', 'TurmaController@store');
@@ -93,10 +75,7 @@ Route::group([
 });
 
 //Letivo
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('letivo/lista', 'LetivoController');
     Route::get('letivo/{id}', 'LetivoController@show');
     Route::post('letivo/insere', 'LetivoController@store');
@@ -105,10 +84,7 @@ Route::group([
 });
 
 //Matricula
-Route::group([
-    'middleware' => 'auth:api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('matricula/lista', 'MatriculaController');
     Route::get('matricula/{id}', 'MatriculaController@show');
     Route::post('matricula/insere', 'MatriculaController@store');
@@ -119,10 +95,7 @@ Route::group([
 });
 
 //Disciplina
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('disciplina/lista', 'DisciplinaController');
     Route::get('disciplina/{id}', 'DisciplinaController@show');
     Route::post('disciplina/insere', 'DisciplinaController@store');
@@ -131,10 +104,7 @@ Route::group([
 });
 
 //Boletim
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('boletim/lista', 'BoletimController');
     Route::get('boletim/{id}', 'BoletimController@show');
     Route::post('boletim/insere', 'BoletimController@store');
@@ -146,10 +116,7 @@ Route::group([
 });
 
 //Nota
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('nota/lista', 'NotaController');
     Route::get('nota/{id}', 'NotaController@show');
     Route::post('nota/insere', 'NotaController@store');
@@ -160,10 +127,7 @@ Route::group([
 });
 
 //Escola
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('escola/lista', 'EscolaController');
     Route::get('escola/{id}', 'EscolaController@show');
     Route::post('escola/insere', 'EscolaController@store');
@@ -172,10 +136,7 @@ Route::group([
 });
 
 //Usuario
-Route::group([
-    'middleware' => 'api',
-    'prefix' => $versao_api
-], function ($router) {
+Route::group(['prefix' => $versao_api, 'middleware' => 'auth:api'], function($router) {
     Route::apiResource('usuario/lista', 'UsuarioController');
     Route::get('usuario/{id}', 'UsuarioController@show');
     Route::post('usuario/insere', 'UsuarioController@store');

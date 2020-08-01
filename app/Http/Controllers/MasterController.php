@@ -74,6 +74,23 @@ class MasterController extends Controller
     {
         //$this->validate($request, $this->model->rules());
         $dataform = $request->all();
+
+        $dataform['data_cadastro'] = Carbon::now()->format('Y-m-d H:i:s');
+        if(!empty($request->input('data_nascimento')))
+            $dataform['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nascimento'))->format('Y-m-d');
+        if(!empty($request->input('data_nasc_pai')))
+            $dataform['data_nasc_pai'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nasc_pai'))->format('Y-m-d');
+        if(!empty($request->input('data_nasc_mae')))
+            $dataform['data_nasc_mae'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nasc_mae'))->format('Y-m-d');
+        if(!empty($request->input('data_nasc_resp')))
+            $dataform['data_nasc_resp'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nasc_resp'))->format('Y-m-d');
+        if(!empty($request->input('renda_pai')))
+            $dataform['renda_pai'] = floatval($request->input('renda_pai'));
+        if(!empty($request->input('renda_mae')))
+            $dataform['renda_mae'] = floatval($request->input('renda_mae'));
+        if(!empty($request->input('renda_resp')))
+            $dataform['renda_resp'] = floatval($request->input('renda_resp'));
+
         $validator = Validator::make($dataform, $this->model->rules());
         if ($validator->fails()) {
             return response()->json(['erro' => $validator->errors()], Response::HTTP_OK);
@@ -146,6 +163,22 @@ class MasterController extends Controller
             return response()->json(['erro' => 'Recurso não localizado.'], Response::HTTP_NOT_FOUND);
 
         $dataform = $request->all();
+
+        if(!empty($request->input('data_nascimento')))
+            $dataform['data_nascimento'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nascimento'))->format('Y-m-d');
+        if(!empty($request->input('data_nasc_pai')))
+            $dataform['data_nasc_pai'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nasc_pai'))->format('Y-m-d');
+        if(!empty($request->input('data_nasc_mae')))
+            $dataform['data_nasc_mae'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nasc_mae'))->format('Y-m-d');
+        if(!empty($request->input('data_nasc_resp')))
+            $dataform['data_nasc_resp'] = Carbon::createFromFormat('d/m/Y', $request->input('data_nasc_resp'))->format('Y-m-d');
+        if(!empty($request->input('renda_pai')))
+            $dataform['renda_pai'] = floatval($request->input('renda_pai'));
+        if(!empty($request->input('renda_mae')))
+            $dataform['renda_mae'] = floatval($request->input('renda_mae'));
+        if(!empty($request->input('renda_resp')))
+            $dataform['renda_resp'] = floatval($request->input('renda_resp'));
+
         $validator = Validator::make($dataform, $this->model->rules($id));
         if ($validator->fails()) {
             return response()->json(['erro' => $validator->errors()], Response::HTTP_OK);

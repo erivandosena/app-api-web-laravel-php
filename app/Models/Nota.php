@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Notum
+ * Class Nota
  * 
  * @property int $cod_nota
  * @property int $cod_disc
@@ -41,15 +41,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property character varying|null $pontos
  * @property character varying|null $resultado_final
  * @property character varying|null $tipo_distribuida
+ * @property int $cod_esco
  * 
  * @property Disciplina $disciplina
- * @property Collection|Boletim[] $boletims
+ * @property Escola $escola
+ * @property Collection|Boletin[] $boletins
  *
  * @package App\Models
  */
 class Nota extends Model
 {
-	protected $table = 'nota';
+	protected $table = 'notas';
 	protected $primaryKey = 'cod_nota';
 	public $timestamps = false;
 
@@ -81,7 +83,8 @@ class Nota extends Model
 		'faltas' => 'int',
 		'pontos' => 'character varying',
 		'resultado_final' => 'character varying',
-		'tipo_distribuida' => 'character varying'
+		'tipo_distribuida' => 'character varying',
+		'cod_esco' => 'int'
 	];
 
 	protected $fillable = [
@@ -112,7 +115,8 @@ class Nota extends Model
 		'faltas',
 		'pontos',
 		'resultado_final',
-		'tipo_distribuida'
+		'tipo_distribuida',
+		'cod_esco'
 	];
 
 	public function disciplina()
@@ -120,8 +124,13 @@ class Nota extends Model
 		return $this->belongsTo(Disciplina::class, 'cod_disc');
 	}
 
-	public function boletims()
+	public function escola()
 	{
-		return $this->hasMany(Boletim::class, 'cod_nota');
+		return $this->belongsTo(Escola::class, 'cod_esco');
+	}
+
+	public function boletins()
+	{
+		return $this->hasMany(Boletin::class, 'cod_nota');
 	}
 }

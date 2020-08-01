@@ -26,25 +26,27 @@ class MatriculaController extends MasterController
         }
     }
 
-	public function listaMatriculas($nome_ou_matricula) {
-        $dados = DB::table('matricula')
-        ->select('matricula.cod_matr',
-        'matricula.matricula',
-        'aluno.nome_aluno',
-        'curso.nome_curso',
-        'serie.nome_serie',
-        'turno.nome_turno',
-        'turma.nome_turma',
-        'letivo.ano_letivo')
-        ->join('aluno','aluno.cod_alun','matricula.cod_alun')
-        ->join('curso','curso.cod_curs','matricula.cod_curs')
-        ->join('serie','serie.cod_seri','matricula.cod_seri')
-        ->join('turno','turno.cod_turn','matricula.cod_turn')
-        ->join('turma','turma.cod_turm','matricula.cod_turm')
-        ->join('letivo','letivo.cod_leti','matricula.cod_leti')
-        ->where('aluno.nome_aluno', $nome_ou_matricula)
-        ->orWhere('matricula.matricula', $nome_ou_matricula)
-        ->orderByDesc('letivo.ano_letivo')
+	public function listaMatriculas($id_matricula_nome) {
+        $dados = DB::table('matriculas')
+        ->select('matriculas.cod_matr',
+        'matriculas.matricula',
+        'alunos.nome_aluno',
+        'cursos.nome_curso',
+        'series.nome_serie',
+        'turnos.nome_turno',
+        'turmas.nome_turma',
+        'letivos.ano_letivo',
+        'matriculas.cod_esco')
+        ->join('alunos','alunos.cod_alun','matriculas.cod_alun')
+        ->join('cursos','cursos.cod_curs','matriculas.cod_curs')
+        ->join('series','series.cod_seri','matriculas.cod_seri')
+        ->join('turnos','turnos.cod_turn','matriculas.cod_turn')
+        ->join('turmas','turmas.cod_turm','matriculas.cod_turm')
+        ->join('letivos','letivos.cod_leti','matriculas.cod_leti')
+        ->where('alunos.cod_alun', intval($id_matricula_nome))
+        ->orWhere('matriculas.matricula', $id_matricula_nome)
+        ->orWhere('alunos.nome_aluno', $id_matricula_nome)
+        ->orderByDesc('letivos.ano_letivo')
         ->get();
 
         if($dados->isEmpty())
@@ -54,24 +56,25 @@ class MatriculaController extends MasterController
     }
 
 	public function listaTodasMatriculas() {
-        $dados = DB::table('matricula')
-        ->select('matricula.cod_matr',
-        'matricula.matricula',
-        'aluno.nome_aluno',
-        'curso.nome_curso',
-        'serie.nome_serie',
-        'turno.nome_turno',
-        'turma.nome_turma',
-        'letivo.ano_letivo')
-        ->join('aluno','aluno.cod_alun','matricula.cod_alun')
-        ->join('curso','curso.cod_curs','matricula.cod_curs')
-        ->join('serie','serie.cod_seri','matricula.cod_seri')
-        ->join('turno','turno.cod_turn','matricula.cod_turn')
-        ->join('turma','turma.cod_turm','matricula.cod_turm')
-        ->join('letivo','letivo.cod_leti','matricula.cod_leti')
+        $dados = DB::table('matriculas')
+        ->select('matriculas.cod_matr',
+        'matriculas.matricula',
+        'alunos.nome_aluno',
+        'cursos.nome_curso',
+        'series.nome_serie',
+        'turnos.nome_turno',
+        'turmas.nome_turma',
+        'letivos.ano_letivo',
+        'matriculas.cod_esco')
+        ->join('alunos','alunos.cod_alun','matriculas.cod_alun')
+        ->join('cursos','cursos.cod_curs','matriculas.cod_curs')
+        ->join('series','series.cod_seri','matriculas.cod_seri')
+        ->join('turnos','turnos.cod_turn','matriculas.cod_turn')
+        ->join('turmas','turmas.cod_turm','matriculas.cod_turm')
+        ->join('letivos','letivos.cod_leti','matriculas.cod_leti')
         //->where('aluno.nome_aluno', $nome_ou_matricula)
         //->orWhere('matricula.matricula', $nome_ou_matricula)
-        ->orderByDesc('letivo.ano_letivo')
+        ->orderByDesc('letivos.ano_letivo')
         //->get();
         ->paginate(25);
 

@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property character varying $cnpj
  * @property character varying|null $ie
  * @property character varying|null $slogan
+ * @property string|null $logotipo
  * @property character varying|null $endereco
  * @property character varying|null $bairro
  * @property character varying|null $cep
@@ -24,19 +26,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property character varying|null $estado
  * @property character varying|null $uf
  * @property character varying|null $telefone
- * @property character varying|null $fax
+ * @property character varying|null $rede_social
  * @property character varying|null $email
  * @property character varying|null $website
- * @property character varying|null $socio_1
- * @property character varying|null $socio_2
- * @property bytea|null $logo_empresa
- * @property float|null $juros
- * @property float|null $multa
- * @property float|null $mensalidade_ei
- * @property float|null $mensalidade_efi
- * @property float|null $mensalidade_efii
- * @property float|null $mensalidade_em
- * @property character varying|null $vencimento_dia
  * @property character varying|null $diretor
  * @property character varying|null $diretor_reg
  * @property character varying|null $secretario
@@ -47,26 +39,29 @@ use Illuminate\Database\Eloquent\Model;
  * @property character varying|null $credenc_parecer_val
  * @property character varying|null $recredenc_parecer
  * @property character varying|null $recredenc_parecer_val
- * @property character varying|null $instrucao_carne_alun1
- * @property character varying|null $instrucao_carne_alun2
- * @property character varying|null $instrucao_carne_com1
- * @property character varying|null $instrucao_carne_com2
- * @property string|null $instrucao_boletim_apro
- * @property string|null $instrucao_boletim_repro
  * @property character varying|null $orgao_expedidor
  * @property character varying|null $orgao_expedidor_val
  * @property character varying|null $diario_oficial
- * @property int|null $livro_numero
- * @property int|null $folha_numero
- * @property int|null $registro_numero
- * @property int|null $total_folhas_livro
- * @property int|null $total_reg_folha
+ * 
+ * @property Collection|Disciplina[] $disciplinas
+ * @property Collection|Carne[] $carnes
+ * @property Collection|Contrato[] $contratos
+ * @property Collection|Boletin[] $boletins
+ * @property Collection|Nota[] $notas
+ * @property Collection|Matricula[] $matriculas
+ * @property Collection|Letivo[] $letivos
+ * @property Collection|Turno[] $turnos
+ * @property Collection|Turma[] $turmas
+ * @property Collection|Series[] $series
+ * @property Collection|Curso[] $cursos
+ * @property Collection|Usuario[] $usuarios
+ * @property Collection|Aluno[] $alunos
  *
  * @package App\Models
  */
 class Escola extends Model
 {
-	protected $table = 'escola';
+	protected $table = 'escolas';
 	protected $primaryKey = 'cod_esco';
 	public $timestamps = false;
 
@@ -83,19 +78,9 @@ class Escola extends Model
 		'estado' => 'character varying',
 		'uf' => 'character varying',
 		'telefone' => 'character varying',
-		'fax' => 'character varying',
+		'rede_social' => 'character varying',
 		'email' => 'character varying',
 		'website' => 'character varying',
-		'socio_1' => 'character varying',
-		'socio_2' => 'character varying',
-		'logo_empresa' => 'bytea',
-		'juros' => 'float',
-		'multa' => 'float',
-		'mensalidade_ei' => 'float',
-		'mensalidade_efi' => 'float',
-		'mensalidade_efii' => 'float',
-		'mensalidade_em' => 'float',
-		'vencimento_dia' => 'character varying',
 		'diretor' => 'character varying',
 		'diretor_reg' => 'character varying',
 		'secretario' => 'character varying',
@@ -106,18 +91,9 @@ class Escola extends Model
 		'credenc_parecer_val' => 'character varying',
 		'recredenc_parecer' => 'character varying',
 		'recredenc_parecer_val' => 'character varying',
-		'instrucao_carne_alun1' => 'character varying',
-		'instrucao_carne_alun2' => 'character varying',
-		'instrucao_carne_com1' => 'character varying',
-		'instrucao_carne_com2' => 'character varying',
 		'orgao_expedidor' => 'character varying',
 		'orgao_expedidor_val' => 'character varying',
-		'diario_oficial' => 'character varying',
-		'livro_numero' => 'int',
-		'folha_numero' => 'int',
-		'registro_numero' => 'int',
-		'total_folhas_livro' => 'int',
-		'total_reg_folha' => 'int'
+		'diario_oficial' => 'character varying'
 	];
 
 	protected $hidden = [
@@ -131,6 +107,7 @@ class Escola extends Model
 		'cnpj',
 		'ie',
 		'slogan',
+		'logotipo',
 		'endereco',
 		'bairro',
 		'cep',
@@ -138,19 +115,9 @@ class Escola extends Model
 		'estado',
 		'uf',
 		'telefone',
-		'fax',
+		'rede_social',
 		'email',
 		'website',
-		'socio_1',
-		'socio_2',
-		'logo_empresa',
-		'juros',
-		'multa',
-		'mensalidade_ei',
-		'mensalidade_efi',
-		'mensalidade_efii',
-		'mensalidade_em',
-		'vencimento_dia',
 		'diretor',
 		'diretor_reg',
 		'secretario',
@@ -161,19 +128,73 @@ class Escola extends Model
 		'credenc_parecer_val',
 		'recredenc_parecer',
 		'recredenc_parecer_val',
-		'instrucao_carne_alun1',
-		'instrucao_carne_alun2',
-		'instrucao_carne_com1',
-		'instrucao_carne_com2',
-		'instrucao_boletim_apro',
-		'instrucao_boletim_repro',
 		'orgao_expedidor',
 		'orgao_expedidor_val',
-		'diario_oficial',
-		'livro_numero',
-		'folha_numero',
-		'registro_numero',
-		'total_folhas_livro',
-		'total_reg_folha'
+		'diario_oficial'
 	];
+
+	public function disciplinas()
+	{
+		return $this->hasMany(Disciplina::class, 'cod_esco');
+	}
+
+	public function carnes()
+	{
+		return $this->hasMany(Carne::class, 'cod_esco');
+	}
+
+	public function contratos()
+	{
+		return $this->hasMany(Contrato::class, 'cod_esco');
+	}
+
+	public function boletins()
+	{
+		return $this->hasMany(Boletin::class, 'cod_esco');
+	}
+
+	public function notas()
+	{
+		return $this->hasMany(Nota::class, 'cod_esco');
+	}
+
+	public function matriculas()
+	{
+		return $this->hasMany(Matricula::class, 'cod_esco');
+	}
+
+	public function letivos()
+	{
+		return $this->hasMany(Letivo::class, 'cod_esco');
+	}
+
+	public function turnos()
+	{
+		return $this->hasMany(Turno::class, 'cod_esco');
+	}
+
+	public function turmas()
+	{
+		return $this->hasMany(Turma::class, 'cod_esco');
+	}
+
+	public function series()
+	{
+		return $this->hasMany(Series::class, 'cod_esco');
+	}
+
+	public function cursos()
+	{
+		return $this->hasMany(Curso::class, 'cod_esco');
+	}
+
+	public function usuarios()
+	{
+		return $this->hasMany(Usuario::class, 'cod_esco');
+	}
+
+	public function alunos()
+	{
+		return $this->hasMany(Aluno::class, 'cod_esco');
+	}
 }

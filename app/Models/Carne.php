@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Carne
  * 
  * @property int $cod_carn
- * @property int $cod_contr
+ * @property int $cod_cont
  * @property character varying|null $numero_doc
  * @property character varying|null $mes
  * @property timestamp without time zone|null $data_vencimento
@@ -26,19 +26,21 @@ use Illuminate\Database\Eloquent\Model;
  * @property float|null $valor_pago
  * @property float|null $valor_pendente
  * @property float|null $total_pago
+ * @property int $cod_esco
  * 
  * @property Contrato $contrato
+ * @property Escola $escola
  *
  * @package App\Models
  */
 class Carne extends Model
 {
-	protected $table = 'carne';
+	protected $table = 'carnes';
 	protected $primaryKey = 'cod_carn';
 	public $timestamps = false;
 
 	protected $casts = [
-		'cod_contr' => 'int',
+		'cod_cont' => 'int',
 		'numero_doc' => 'character varying',
 		'mes' => 'character varying',
 		'data_vencimento' => 'timestamp without time zone',
@@ -51,11 +53,12 @@ class Carne extends Model
 		'valor_apagar' => 'float',
 		'valor_pago' => 'float',
 		'valor_pendente' => 'float',
-		'total_pago' => 'float'
+		'total_pago' => 'float',
+		'cod_esco' => 'int'
 	];
 
 	protected $fillable = [
-		'cod_contr',
+		'cod_cont',
 		'numero_doc',
 		'mes',
 		'data_vencimento',
@@ -68,11 +71,17 @@ class Carne extends Model
 		'valor_apagar',
 		'valor_pago',
 		'valor_pendente',
-		'total_pago'
+		'total_pago',
+		'cod_esco'
 	];
 
 	public function contrato()
 	{
-		return $this->belongsTo(Contrato::class, 'cod_contr');
+		return $this->belongsTo(Contrato::class, 'cod_cont');
+	}
+
+	public function escola()
+	{
+		return $this->belongsTo(Escola::class, 'cod_esco');
 	}
 }

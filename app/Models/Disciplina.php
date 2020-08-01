@@ -17,14 +17,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property character varying|null $ldb
  * @property character varying|null $distribuida
  * @property character varying|null $unificacao
+ * @property int $cod_esco
  * 
- * @property Collection|Notum[] $nota
+ * @property Escola $escola
+ * @property Collection|Nota[] $notas
  *
  * @package App\Models
  */
 class Disciplina extends Model
 {
-	protected $table = 'disciplina';
+	protected $table = 'disciplinas';
 	protected $primaryKey = 'cod_disc';
 	public $timestamps = false;
 
@@ -32,18 +34,25 @@ class Disciplina extends Model
 		'disciplina' => 'character varying',
 		'ldb' => 'character varying',
 		'distribuida' => 'character varying',
-		'unificacao' => 'character varying'
+		'unificacao' => 'character varying',
+		'cod_esco' => 'int'
 	];
 
 	protected $fillable = [
 		'disciplina',
 		'ldb',
 		'distribuida',
-		'unificacao'
+		'unificacao',
+		'cod_esco'
 	];
 
-	public function nota()
+	public function escola()
 	{
-		return $this->hasMany(Notum::class, 'cod_disc');
+		return $this->belongsTo(Escola::class, 'cod_esco');
+	}
+
+	public function notas()
+	{
+		return $this->hasMany(Nota::class, 'cod_disc');
 	}
 }

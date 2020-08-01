@@ -1,32 +1,33 @@
-@extends('layouts.app')
+@extends('layouts.layout_principal')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Área Restrita') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('Você está Logado(a)!') }}
-
-                    <div class="container-fluid">
-                        <div class="row justify-content-md-center">
-                            <div class="col-md-auto">
-                                <img src="/logo.jpg" alt="GEES" style="height: 450px; width: 450px; border-image: 0px; margin-top: 10px; margin-bottom: 10px;">
+@guest
+    <br />
+@else
+    @section('content')
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <!-- inicio restante do conteúdo -->
+                    <div class="card" style="margin: 50px;">
+                        <div class="card-header">{{ __('Área Restrita') }}</div>
+                        <div class="card-body">
+                            <div class="container-fluid">
+                                <h5 class="card-title"></h5>
+                                <h6 class="card-subtitle mb-2 text-muted"><strong></strong></h6>
+                                <p class="card-text">
+                                    <strong>
+                                        <div class="alert alert-info" role="alert">
+                                            {{ __('Você está Logado(a)!') }}
+                                        </div>
+                                    </strong>
+                                </p>
+                                <img src="/logo_web.png" alt="GEES" style="height: 512px; width: 512px; border-image: 0px; margin-top: 10px; margin-bottom: 10px;">
                             </div>
                         </div>
                     </div>
-
+                    <!-- fim restante do conteúdo -->
                 </div>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+    @endsection
+@endguest

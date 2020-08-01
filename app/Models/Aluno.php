@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Aluno
- * 
+ *
  * @property int $cod_alun
  * @property character varying|null $nome_aluno
  * @property character varying|null $rg
@@ -96,15 +96,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property character varying|null $situacao_aluno
  * @property timestamp without time zone|null $data_cadastro
  * @property string|null $fotografia
- * 
+ * @property character varying|null $email
+ * @property int $cod_esco
+ *
+ * @property Escola $escola
  * @property Collection|Matricula[] $matriculas
  *
  * @package App\Models
  */
 class Aluno extends Model
 {
-	protected $table = 'aluno';
-	protected $primaryKey = 'cod_alun';
+	protected $table = 'alunos';
+    protected $primaryKey = 'cod_alun';
+    //protected $foreignKey = 'cod_esco';
 	public $timestamps = false;
 
 	protected $hidden = ['foto'];
@@ -188,7 +192,9 @@ class Aluno extends Model
 		'estado_resp' => 'character varying',
 		'uf_resp' => 'character varying',
 		'situacao_aluno' => 'character varying',
-		'data_cadastro' => 'timestamp without time zone'
+		'data_cadastro' => 'timestamp without time zone',
+		'email' => 'character varying',
+		'cod_esco' => 'int'
 	];
 
 	protected $fillable = [
@@ -274,17 +280,107 @@ class Aluno extends Model
 		'uf_resp',
 		'situacao_aluno',
 		'data_cadastro',
-		'fotografia'
+		'fotografia',
+		'email',
+		'cod_esco'
 	];
 
 	//protected $guarded = [];
 
 	public function rules($id=0){
-		
+
 		return [
-			'nome_aluno' => 'required|max:50',
-			'cpf' => 'required|min:11|max:14|unique:aluno,cpf' . ($id ? ",$id,$this->primaryKey" : '') 
+            'nome_aluno' => 'required|max:50',
+            'rg' => 'max:25',
+            'cpf' => 'required|min:11|max:14|unique:alunos,cpf' . ($id ? ",$id,$this->primaryKey" : ''),
+            //'foto' => 'string',
+            'data_nascimento' => 'date_format:Y-m-d',
+            'naturalidade' => 'max:25',
+            'estado_naturalidade' => 'max:25',
+            'nacionalidade' => 'max:25',
+            'endereco' => 'max:50',
+            'bairro' => 'max:30',
+            'cidade' => 'max:25',
+            'cep' => 'max:10',
+            'estado' => 'max:25',
+            'uf' => 'max:2',
+            'tel_aluno' => 'max:20',
+            'tel_cel_aluno' => 'max:20',
+            'sexo' => 'max:9',
+            'religiao' => 'max:30',
+            'escola_anterior' => 'max:50',
+            'cidade_esco_ant' => 'max:25',
+            'estado_esco_ant' => 'max:25',
+            'uf_esco_ant' => 'max:2',
+            'tel_esco_ant' => 'max:20',
+            'problemas_saude' => 'min:5',
+            'remedios_proibidos' => 'min:5',
+            'remedios_utilizados' => 'min:5',
+            'nome_pai' => 'max:50',
+            'data_nasc_pai' => 'date_format:Y-m-d',
+            'nacionalidade_pai' => 'max:25',
+            'naturalidade_pai' => 'max:25',
+            'rg_pai' => 'max:25',
+            'cpf_pai' => 'min:11|max:14',
+            'tel_pai' => 'max:20',
+            'tel_trab_pai' => 'max:20',
+            'tel_cel_pai' => 'max:20',
+            'local_trab_pai' => 'max:30',
+            'profissao_pai' => 'max:30',
+            'renda_pai' => 'float',
+            'endereco_pai' => 'max:50',
+            'bairro_pai' => 'max:30',
+            'cidade_pai' => 'max:25',
+            'cep_pai' => 'max:10',
+            'estado_pai' => 'max:25',
+            'uf_pai' => 'max:2',
+            'nome_mae' => 'max:50',
+            'data_nasc_mae' => 'date_format:Y-m-d',
+            'nacionalidade_mae' => 'max:25',
+            'naturalidade_mae' => 'max:25',
+            'rg_mae' => 'max:25',
+            'cpf_mae' => 'min:11|max:14',
+            'tel_mae' => 'max:20',
+            'tel_trab_mae' => 'max:20',
+            'tel_cel_mae' => 'max:20',
+            'local_trab_mae' => 'max:30',
+            'profissao_mae' => 'max:30',
+            'renda_mae' => 'float',
+            'endereco_mae' => 'max:50',
+            'bairro_mae' => 'max:30',
+            'cidade_mae' => 'max:25',
+            'cep_mae' => 'max:10',
+            'estado_mae' => 'max:25',
+            'uf_mae' => 'max:2',
+            'nome_resp' => 'max:50',
+            'data_nasc_resp' => 'date_format:Y-m-d',
+            'nacionalidade_resp' => 'max:25',
+            'naturalidade_resp' => 'max:25',
+            'rg_resp' => 'max:25',
+            'cpf_resp' => 'min:11|max:14',
+            'tel_resp' => 'max:20',
+            'tel_trab_resp' => 'max:20',
+            'tel_cel_resp' => 'max:20',
+            'local_trab_resp' => 'max:30',
+            'profissao_resp' => 'max:30',
+            'renda_resp' => 'float',
+            'endereco_resp' => 'max:50',
+            'bairro_resp' => 'max:30',
+            'cidade_resp' => 'max:25',
+            'cep_resp' => 'max:10',
+            'estado_resp' => 'max:25',
+            'uf_resp' => 'max:2',
+            'situacao_aluno' => 'max:15',
+            'data_cadastro' => 'date_format:Y-m-d H:i:s',
+            'fotografia' => 'min:1000',
+            'email' => 'max:150|email:rfc,dns',
+            'cod_esco' => 'int'
 		];
+	}
+
+	public function escola()
+	{
+		return $this->belongsTo(Escola::class, 'cod_esco');
 	}
 
 	public function matriculas()

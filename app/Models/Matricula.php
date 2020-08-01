@@ -20,21 +20,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $cod_turn
  * @property int|null $cod_turm
  * @property int|null $cod_leti
+ * @property int $cod_esco
  * 
  * @property Aluno $aluno
  * @property Curso $curso
- * @property Serie $serie
+ * @property Series $series
  * @property Turno $turno
  * @property Turma $turma
  * @property Letivo $letivo
- * @property Collection|Boletim[] $boletims
+ * @property Escola $escola
  * @property Collection|Contrato[] $contratos
+ * @property Collection|Boletin[] $boletins
  *
  * @package App\Models
  */
 class Matricula extends Model
 {
-	protected $table = 'matricula';
+	protected $table = 'matriculas';
 	protected $primaryKey = 'cod_matr';
 	public $timestamps = false;
 
@@ -45,7 +47,8 @@ class Matricula extends Model
 		'cod_seri' => 'int',
 		'cod_turn' => 'int',
 		'cod_turm' => 'int',
-		'cod_leti' => 'int'
+		'cod_leti' => 'int',
+		'cod_esco' => 'int'
 	];
 
 	protected $fillable = [
@@ -55,7 +58,8 @@ class Matricula extends Model
 		'cod_seri',
 		'cod_turn',
 		'cod_turm',
-		'cod_leti'
+		'cod_leti',
+		'cod_esco'
 	];
 
 	public function aluno()
@@ -68,9 +72,9 @@ class Matricula extends Model
 		return $this->belongsTo(Curso::class, 'cod_curs');
 	}
 
-	public function serie()
+	public function series()
 	{
-		return $this->belongsTo(Serie::class, 'cod_seri');
+		return $this->belongsTo(Series::class, 'cod_seri');
 	}
 
 	public function turno()
@@ -88,13 +92,18 @@ class Matricula extends Model
 		return $this->belongsTo(Letivo::class, 'cod_leti');
 	}
 
-	public function boletims()
+	public function escola()
 	{
-		return $this->hasMany(Boletim::class, 'cod_matr');
+		return $this->belongsTo(Escola::class, 'cod_esco');
 	}
 
 	public function contratos()
 	{
 		return $this->hasMany(Contrato::class, 'cod_matr');
+	}
+
+	public function boletins()
+	{
+		return $this->hasMany(Boletin::class, 'cod_matr');
 	}
 }

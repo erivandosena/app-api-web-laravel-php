@@ -6,33 +6,69 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
 /**
  * Class Usuario
- * 
- * @property int $cod_usua
- * @property character varying $nome_usuario
- * @property character varying|null $senha
- * @property character varying|null $anterior
+ *
+ * @property int $id
+ * @property character varying $name
+ * @property character varying $email
+ * @property character varying $password
+ * @property character varying|null $remember_token
+ * @property timestamp without time zone|null $created_at
+ * @property timestamp without time zone|null $updated_at
+ * @property string|null $avatar
+ * @property int $cod_esco
+ *
+ * @property Escola $escola
+ * @property Collection|Papei[] $papeis
+ * @property Collection|Permisso[] $permissos
  *
  * @package App\Models
  */
-class Usuario extends Model
+class Usuario extends User //Model
 {
-	protected $table = 'usuario';
-	protected $primaryKey = 'cod_usua';
-	public $timestamps = false;
+	protected $table = 'usuarios';
 
 	protected $casts = [
-		'nome_usuario' => 'character varying',
-		'senha' => 'character varying',
-		'anterior' => 'character varying'
+		'name' => 'character varying',
+		'email' => 'character varying',
+		'password' => 'character varying',
+		'remember_token' => 'character varying',
+		'created_at' => 'timestamp without time zone',
+		'updated_at' => 'timestamp without time zone',
+		'cod_esco' => 'int'
+	];
+
+	protected $hidden = [
+		'password',
+		'remember_token'
 	];
 
 	protected $fillable = [
-		'nome_usuario',
-		'senha',
-		'anterior'
+		'name',
+		'email',
+		'password',
+		'remember_token',
+		'avatar',
+		'cod_esco'
 	];
+
+	public function escola()
+	{
+		return $this->belongsTo(Escola::class, 'cod_esco');
+	}
+
+	public function papeis()
+	{
+		return $this->belongsToMany(Papei::class, 'usuarios_papeis', 'user_id', 'role_id');
+	}
+
+	public function permissos()
+	{
+		return $this->belongsToMany(Permisso::class, 'usuarios_permissoes', 'user_id', 'permission_id');
+	}
 }

@@ -27,34 +27,35 @@ class BoletimController extends MasterController
     }
 
 	public function boletimNotas($id) {
-        $dados = DB::table('boletim')
-        ->select('boletim.cod_bole',
-        'matricula.matricula',
-        'aluno.nome_aluno',
-        'aluno.fotografia',
-        'curso.nome_curso',
-        'serie.nome_serie',
-        'turno.nome_turno',
-        'turma.nome_turma',
-        'letivo.ano_letivo',
-        'disciplina.disciplina',
-        'nota.etapa_1_mar','nota.etapa_1_abr','nota.etapa_1_av3','nota.etapa_1_m','nota.etapa_1_r',
-        'nota.etapa_2_mai','nota.etapa_2_jun','nota.etapa_2_av3','nota.etapa_2_m','nota.etapa_2_r',
-        'nota.etapa_3_ago','nota.etapa_3_set','nota.etapa_3_av3','nota.etapa_3_m','nota.etapa_3_r',
-        'nota.etapa_4_out','nota.etapa_4_nov','nota.etapa_4_av3','nota.etapa_4_m','nota.etapa_4_r',
-        'nota.provao','nota.provao_r','nota.media_final',
-        'nota.faltas','nota.pontos','nota.resultado_final')
-        ->join('nota','nota.cod_nota','boletim.cod_nota')
-        ->join('matricula','matricula.cod_matr','boletim.cod_matr')
-        ->join('disciplina','disciplina.cod_disc','nota.cod_disc')
-        ->join('aluno','aluno.cod_alun','matricula.cod_alun')
-        ->join('curso','curso.cod_curs','matricula.cod_curs')
-        ->join('serie','serie.cod_seri','matricula.cod_seri')
-        ->join('turno','turno.cod_turn','matricula.cod_turn')
-        ->join('turma','turma.cod_turm','matricula.cod_turm')
-        ->join('letivo','letivo.cod_leti','matricula.cod_leti')
-        ->where('boletim.cod_matr', $id)
-        ->orderBy('nota.cod_nota')
+        $dados = DB::table('boletins')
+        ->select('boletins.cod_bole',
+        'matriculas.matricula',
+        'alunos.nome_aluno',
+        'alunos.fotografia',
+        'cursos.nome_curso',
+        'series.nome_serie',
+        'turnos.nome_turno',
+        'turmas.nome_turma',
+        'letivos.ano_letivo',
+        'disciplinas.disciplina',
+        'notas.etapa_1_mar','notas.etapa_1_abr','notas.etapa_1_av3','notas.etapa_1_m','notas.etapa_1_r',
+        'notas.etapa_2_mai','notas.etapa_2_jun','notas.etapa_2_av3','notas.etapa_2_m','notas.etapa_2_r',
+        'notas.etapa_3_ago','notas.etapa_3_set','notas.etapa_3_av3','notas.etapa_3_m','notas.etapa_3_r',
+        'notas.etapa_4_out','notas.etapa_4_nov','notas.etapa_4_av3','notas.etapa_4_m','notas.etapa_4_r',
+        'notas.provao','notas.provao_r','notas.media_final',
+        'notas.faltas','notas.pontos','notas.resultado_final',
+        'boletins.cod_esco')
+        ->join('notas','notas.cod_nota','boletins.cod_nota')
+        ->join('matriculas','matriculas.cod_matr','boletins.cod_matr')
+        ->join('disciplinas','disciplinas.cod_disc','notas.cod_disc')
+        ->join('alunos','alunos.cod_alun','matriculas.cod_alun')
+        ->join('cursos','cursos.cod_curs','matriculas.cod_curs')
+        ->join('series','series.cod_seri','matriculas.cod_seri')
+        ->join('turnos','turnos.cod_turn','matriculas.cod_turn')
+        ->join('turmas','turmas.cod_turm','matriculas.cod_turm')
+        ->join('letivos','letivos.cod_leti','matriculas.cod_leti')
+        ->where('boletins.cod_matr', $id)
+        ->orderBy('notas.cod_nota')
         ->get();
 
         /*

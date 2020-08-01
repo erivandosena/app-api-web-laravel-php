@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class JWTAuthController extends Controller
 {
@@ -114,11 +115,14 @@ class JWTAuthController extends Controller
     protected function createNewToken($token)
     {
         $user = auth($this->guard)->user();
+        $escola =  DB::table('escolas')->where('cod_esco', $user->cod_esco)->first();
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => auth($this->guard)->factory()->getTTL() * 60,
-            'user' => $user
+            'user' => $user,
+            'escola' => $escola
         ]);
     }
 }

@@ -14,24 +14,33 @@ use Illuminate\Database\Eloquent\Model;
  * 
  * @property int $cod_turm
  * @property character varying|null $nome_turma
+ * @property int $cod_esco
  * 
+ * @property Escola $escola
  * @property Collection|Matricula[] $matriculas
  *
  * @package App\Models
  */
 class Turma extends Model
 {
-	protected $table = 'turma';
+	protected $table = 'turmas';
 	protected $primaryKey = 'cod_turm';
 	public $timestamps = false;
 
 	protected $casts = [
-		'nome_turma' => 'character varying'
+		'nome_turma' => 'character varying',
+		'cod_esco' => 'int'
 	];
 
 	protected $fillable = [
-		'nome_turma'
+		'nome_turma',
+		'cod_esco'
 	];
+
+	public function escola()
+	{
+		return $this->belongsTo(Escola::class, 'cod_esco');
+	}
 
 	public function matriculas()
 	{

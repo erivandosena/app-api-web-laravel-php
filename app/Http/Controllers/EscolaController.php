@@ -15,4 +15,9 @@ class EscolaController extends MasterController
         $this->request = $request;
     }
 
+	public function showCadastroEscola($id) {
+        $dados = $this->model->findOrFail($id);
+        return view('editaEscola', compact('dados'));
+    }
+
 }
