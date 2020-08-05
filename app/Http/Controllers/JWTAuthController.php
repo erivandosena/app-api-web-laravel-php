@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\Usuario;
 
 class JWTAuthController extends Controller
 {
@@ -72,6 +73,22 @@ class JWTAuthController extends Controller
 
         return $this->createNewToken($token);
     }
+
+    /*
+    public function update(Request $request, $id)
+    {
+        $dados = Usuario->find($id);
+        $dataform = $request->all();
+        $validator = Validator::make($dataform, $this->model->rules());
+
+        $dados->update(array_merge(
+            $validator->validated(),
+            ['password' => Hash::make($request->password)]
+        ));
+
+        return response()->json(['message' => 'Atualizado com sucesso!']);
+    }
+    */
 
     /**
      * Get the authenticated User.

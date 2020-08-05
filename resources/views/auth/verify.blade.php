@@ -3,8 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-auto">
+            <div class="card" style="margin: 150px;">
                 <div class="card-header">{{ __('Verifique seu endereço de e-mail') }}</div>
 
                 <div class="card-body">

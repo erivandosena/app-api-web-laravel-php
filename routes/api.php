@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // User/Login
 Route::group(['prefix' => $versao_api, 'middleware' => 'api'], function($router) {
     Route::post('register', 'JWTAuthController@register');
+   // Route::put('update/{id}', 'JWTAuthController@update');
     Route::post('login', 'JWTAuthController@login');
     Route::post('logout', 'JWTAuthController@logout');
     Route::post('refresh', 'JWTAuthController@refresh');

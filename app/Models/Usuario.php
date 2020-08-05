@@ -24,14 +24,14 @@ use App\User;
  * @property int $cod_esco
  *
  * @property Escola $escola
- * @property Collection|Papei[] $papeis
- * @property Collection|Permisso[] $permissos
+ * @property Collection|Papel[] $papeis
+ * @property Collection|Permissao[] $permissos
  *
  * @package App\Models
  */
 class Usuario extends User //Model
 {
-	protected $table = 'usuarios';
+    protected $table = 'usuarios';
 
 	protected $casts = [
 		'name' => 'character varying',
@@ -55,7 +55,19 @@ class Usuario extends User //Model
 		'remember_token',
 		'avatar',
 		'cod_esco'
-	];
+    ];
+
+	public function rules($id=0){
+
+		return [
+            'name' => 'required|min:2|max:20',
+            'rg' => 'max:25',
+            'email' => 'string|required|email|min:10|max:150|unique:usuarios,email'. ($id ? ",$id,$this->id" : ''),
+            'password' => 'required|confirmed|string|min:6',
+            'avatar' => 'string',
+            'cod_esco' => 'int'
+		];
+	}
 
 	public function escola()
 	{
@@ -64,11 +76,11 @@ class Usuario extends User //Model
 
 	public function papeis()
 	{
-		return $this->belongsToMany(Papei::class, 'usuarios_papeis', 'user_id', 'role_id');
+		return $this->belongsToMany(Papel::class, 'usuarios_papeis', 'user_id', 'role_id');
 	}
 
-	public function permissos()
+	public function permissoes()
 	{
-		return $this->belongsToMany(Permisso::class, 'usuarios_permissoes', 'user_id', 'permission_id');
+		return $this->belongsToMany(Permissao::class, 'usuarios_permissoes', 'user_id', 'permission_id');
 	}
 }

@@ -168,7 +168,7 @@ return [
 
         Reliese\Coders\CodersServiceProvider::class,
         'Tymon\JWTAuth\Providers\LaravelServiceProvider',
-
+        App\Providers\PermissionsServiceProvider::class,
         /*
          * Application Service Providers...
          */

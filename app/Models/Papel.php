@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Papei
+ * Class Papel
  *
  * @property int $id
  * @property character varying $name
@@ -19,13 +19,15 @@ use Illuminate\Database\Eloquent\Model;
  * @property timestamp without time zone|null $updated_at
  *
  * @property Collection|Usuario[] $usuarios
- * @property Collection|Permisso[] $permissos
+ * @property Collection|Permissao[] $permissoes
  *
  * @package App\Models
  */
 class Papel extends Model
 {
-	protected $table = 'papeis';
+    protected $table = 'papeis';
+
+    protected $guarded = [];
 
 	protected $casts = [
 		'name' => 'character varying',
@@ -41,11 +43,13 @@ class Papel extends Model
 
 	public function usuarios()
 	{
-		return $this->belongsToMany(Usuario::class, 'usuarios_papeis', 'role_id', 'user_id');
+        //return $this->belongsToMany(Usuario::class, 'usuarios_papeis', 'role_id', 'user_id');
+		return $this->belongsToMany(Usuario::class, 'usuarios_papeis');
 	}
 
-	public function permissos()
+	public function permissoes()
 	{
-		return $this->belongsToMany(Permisso::class, 'papeis_permissoes', 'role_id', 'permission_id');
+        //return $this->belongsToMany(Permissao::class, 'papeis_permissoes', 'role_id', 'permission_id');
+		return $this->belongsToMany(Permissao::class, 'papeis_permissoes');
 	}
 }

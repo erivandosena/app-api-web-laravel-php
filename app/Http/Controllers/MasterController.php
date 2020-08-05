@@ -37,21 +37,7 @@ class MasterController extends Controller
     public function index() {
 
         $dados = $this->model->all();
-        //dd($dados);
-        //return response()->json($dados);
         return response()->json($dados, Response::HTTP_OK, ['Content-Type' => 'application/json;charset=UTF-8', 'Charset' => 'utf-8'], JSON_UNESCAPED_UNICODE);
-        //return response(json_encode($dados), Response::HTTP_OK)->header('Content-Type', 'application/json;charset=UTF-8');
-        //return response()->json($dados, Response::HTTP_OK);
-
-        /*
-        if($dados->isEmpty())
-            $dados=[];
-        */
-
-        //echo "<pre>";
-        //print_r($dados);
-
-        //eturn response()->json($dados, Response::HTTP_OK);
     }
 
     /**
@@ -72,7 +58,6 @@ class MasterController extends Controller
      */
     public function store(Request $request)
     {
-        //$this->validate($request, $this->model->rules());
         $dataform = $request->all();
 
         $dataform['data_cadastro'] = Carbon::now()->format('Y-m-d H:i:s');
@@ -97,26 +82,8 @@ class MasterController extends Controller
         }
 
         $dados = $this->model->create($dataform);
-        //dd($dados);
-        /*
-        $dados->data_nascimento = Carbon::createFromFormat('Y-m-d H:i:s', $request->input('data_nascimento'));
-        $dados->data_nasc_pai = Carbon::createFromFormat('Y-m-d H:i:s', $request->input('data_nasc_pai'));
-        $dados->data_nasc_mae = Carbon::createFromFormat('Y-m-d H:i:s', $request->input('data_nasc_mae'));
-        $dados->data_nasc_resp = Carbon::createFromFormat('Y-m-d H:i:s', $request->input('data_nasc_resp'));
-        $dados->data_cadastro = Carbon::now()->format('Y-m-d H:i:s'); //date('Y-m-d H:i:s');
-        $dados->renda_pai = floatval($request->input('renda_pai'));
-        $dados->renda_mae = floatval($request->input('renda_mae'));
-        $dados->renda_resp = floatval($request->input('renda_resp'));
-        */
 
         return response()->json($dados, Response::HTTP_CREATED);
-        //return response()->json($dados)->setStatusCode(Response::HTTP_OK, Response::$statusTexts[Response::HTTP_OK]);
-        /*
-        return response()->json(;[
-            'status' => '403',//sample entry
-            'message' => 'ACCOUNT ACTION HAS BEEN DISABLED',//sample message
-         ], Response::HTTP_FORBIDDEN)
-        */
     }
 
     /**
@@ -185,7 +152,7 @@ class MasterController extends Controller
         }
 
         $dados->update($dataform);
-        //return response()->json($dados, ($dados ? Response::HTTP_ACCEPTED : Response::HTTP_NOT_MODIFIED));
+
         $dados = [
             'status' => ($dados ? Response::HTTP_ACCEPTED : Response::HTTP_NOT_MODIFIED),
             'message' => ($dados ? 'Recurso atualizado.' : 'Recurso não atualizado.'),
@@ -210,7 +177,7 @@ class MasterController extends Controller
             'status' => ($dados ? Response::HTTP_ACCEPTED : Response::HTTP_NOT_MODIFIED),
             'message' => ($dados ? 'Recurso deletado.' : 'Recurso não deletado.'),
         ];
-        //return response()->json($dados, ($dados ? Response::HTTP_ACCEPTED : Response::HTTP_NOT_MODIFIED));
+
         return response()->json($dados);
     }
 }

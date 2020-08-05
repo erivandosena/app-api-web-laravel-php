@@ -1,4 +1,4 @@
-@extends('layouts.layout_principal')
+@extends('layouts.app')
 
 @guest
     @section('content')

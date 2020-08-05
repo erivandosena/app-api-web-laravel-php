@@ -128,7 +128,7 @@
                     @guest
                         <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
                             <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
-                            {{ __('Login') }}
+                            {{ __('Entrar') }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
                             <a class="dropdown-item" href="{{ route('home') }}">Login</a>
@@ -147,7 +147,7 @@
 
                     @else
                         <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                            <img src="data:image/png;base64, {{ Auth::user()->avatar }}" style="width:36px; height:36px; border-radius:50%">
+                            <img src="data:image/png;base64, {{ Auth::user()->avatar }}" style="width:36px; height:36px; border-radius:50%" />
                             {{ Auth::user()->name }}
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
@@ -158,24 +158,22 @@
                 </div>
             </div>
             <!-- Administration Links -->
-            <!--
-            <div class="d-flex">
-                <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                        <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
-                        {{ __('Admistração de Usuários') }}
-                    </button>
-                    @guest
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                            <a class="dropdown-item" href="{{ route('register') }}">Registro</a>
+            @guest
+            @else
+                @if(auth()->user()->hasRole('admin'))
+                    <div class="d-flex">
+                        <div class="dropdown mr-1">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
+                                <i class="fa fa-cog fa-spin fa-2x fa-fw"></i>
+                                {{ __('Admistração de Usuários') }}
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+                                <a class="dropdown-item" href="{{ route('create') }}">Registro</a>
+                                <a class="dropdown-item" href="{{ route('index') }}">Lista</a>
+                            </div>
                         </div>
-                    @else
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" href="{{ route('home') }}">Lista</a>
                     </div>
-                    @endguest
-                </div>
-            </div>
-            -->
+                @endif
+            @endguest
         </div>
 </nav>

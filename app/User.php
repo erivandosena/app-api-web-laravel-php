@@ -2,14 +2,17 @@
 
 namespace App;
 
+use App\Permissoes\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Permissoes\HasPermissoesTrait;
 
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+    use HasPermissionsTrait; //Importar a característica
 
     /**
      * The attributes that are mass assignable.

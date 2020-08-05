@@ -26,5 +26,3 @@ Lista de Icones:    https://fontawesome.com/icons?d=gallery&m=free
 
 <!-- Custom styles for this template -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.css">
-
-<title>{{ config('app.name', 'Laravel') }}</title>
