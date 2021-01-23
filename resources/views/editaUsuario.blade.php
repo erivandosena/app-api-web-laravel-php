@@ -8,7 +8,7 @@
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
                 <!-- inicio restante do conteúdo -->
-                <div class="card" style="margin: 55px;">
+                <div class="card">
                     <div class="card-header">Cadastro de Usuário</div>
                     <div class="card-body">
                         <h5 class="card-title"></h5>

@@ -8,7 +8,7 @@
         <div class="row justify-content-md-center">
             <div class="col-md-auto">
                 <!-- inicio restante do conteúdo -->
-                <div class="card">
+                <div class="card" style="margin: 200px;">
                     <div class="card-header">{{ __('Lista Geral de Usuários') }}</div>
                     <div class="card-body">
                         <h5 class="card-title"></h5>
@@ -33,7 +33,7 @@
                                     <th scope="col">Avatar</th>
                                     <th scope="col"><i class="far fa-edit"></i></th>
                                     <th scope="col"><i class="far fa-trash-alt"></i></th>
-                                    <th scope="col"><i class="fas fa-camera"></i></th>
+                                    <th scope="col"><i class="fas fa-user-lock"></i></th>
                                     <th scope="col"><i class="fas fa-user-lock"></i></th>
                                 </tr>
                                 </thead>
@@ -51,14 +51,14 @@
                                         <form action="{{ route('destroy', $linha->id)}}" method="post">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-outline-primary btn-sm" type="submit">Excluir</button>
+                                            <button type="button" class="btn btn-outline-primary btn-sm" type="submit" data-toggle="modal" data-target="#confirmDelete" data-record-id="{{ $linha->id }}" data-record-title="{{ $linha->name }}">Excluir</button>
                                         </form>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='{{ route('matriculasAluno', $linha->id) }}'">Avatar</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='{{ route('editaUsuarioPapel', $linha->id) }}'">Papeis</button>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='{{ route('matriculasAluno', $linha->id) }}'">Permissões</button>
+                                        <button type="button" class="btn btn-outline-primary btn-sm" onclick="location.href='{{ route('editaUsuarioPermissao', $linha->id) }}'">Permissões</button>
                                     </td>
                                 </tr>
                                 </tbody>

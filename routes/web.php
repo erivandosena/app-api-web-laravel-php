@@ -35,9 +35,23 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function($router) {
     Route::delete('usuarios/exclui/{id}',  'UsuarioController@destroy')->name('destroy')->middleware('role:admin');
 });
 
+// Usuario_Permissao
+Route::group(['prefix' => '/', 'middleware' => 'auth'], function($router) {
+Route::get('usuarios/edita/permissao/{id}',  'UsuarioPermissaoController@editUsuarioPermissao')->name('editaUsuarioPermissao')->middleware('role:admin');
+Route::post('usuarios/insere/permissao',  'UsuarioPermissaoController@storeUsuarioPermissao')->name('storeUsuarioPermissao')->middleware('role:admin');
+Route::delete('usuarios/exclui/permissao/{id}',  'UsuarioPermissaoController@destroyUsuarioPermissao')->name('destroyUsuarioPermissao')->middleware('role:admin');
+});
+
+// Usuario_Papel
+Route::group(['prefix' => '/', 'middleware' => 'auth'], function($router) {
+Route::get('usuarios/edita/papel/{id}',  'UsuarioPapelController@editUsuarioPapel')->name('editaUsuarioPapel')->middleware('role:admin');
+Route::post('usuarios/insere/papel',  'UsuarioPapelController@storeUsuarioPapel')->name('storeUsuarioPapel')->middleware('role:admin');
+Route::delete('usuarios/exclui/papel/{id}',  'UsuarioPapelController@destroyUsuarioPapel')->name('destroyUsuarioPapel')->middleware('role:admin');
+});
+
 //Aluno
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function($router) {
-    Route::get('alunos/{codigo_escola}',  'AlunoController@listaTodosAlunos')->name('listaAlunos');
+    Route::get('alunos/{codigo_escola}',  'AlunoController@listaTodosAlunos')->name('listaAlunos')->middleware('role:admin');
     Route::get('alunos/edita/{cod_alun}',  'AlunoController@editaCadastroAluno')->name('editaAluno');
     Route::put('alunos/atualiza/{cod_alun}',  'AlunoController@atualizaCadastroAluno')->name('atualizaAluno');
     Route::delete('alunos/exclui/{cod_alun}',  'AlunoController@excluiCadastroAluno')->name('excluiAluno');

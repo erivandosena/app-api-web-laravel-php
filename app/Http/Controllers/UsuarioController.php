@@ -33,7 +33,14 @@ class UsuarioController extends MasterController
 
     public function create()
     {
-        return view('registraUsuario');
+        $escolas =  DB::table('escolas')
+        ->select('cod_esco', 'nome_fantasia')
+        ->orderBy('nome_fantasia')
+        ->get();
+
+        $dados =array_merge(['usuario' => null, 'escola' => $escolas]);
+
+        return view('registraUsuario', compact('dados'));
     }
 
     public function store(Request $request)
@@ -46,7 +53,7 @@ class UsuarioController extends MasterController
             ['password' => Hash::make($request->password)]
         ));
 
-        return redirect('usuarios')->with('success', 'Cadastrado com sucesso!');
+        return redirect('usuarios')->with('success', 'Salvo com sucesso!');
     }
 
     public function edit($id) {
@@ -77,7 +84,7 @@ class UsuarioController extends MasterController
             ['password' => Hash::make($request->password)]
         ));
 
-        return redirect('usuarios')->with('success', 'Cadastro atualizado!');
+        return redirect('usuarios')->with('success', 'Atualizado com sucesso!');
     }
 
     /**
@@ -89,9 +96,10 @@ class UsuarioController extends MasterController
     public function destroy($id)
     {
         $dados = $this->model->find($id);
+        dd($dados);
         $dados->delete('cascade');
 
-        return redirect('usuarios')->with('success', 'Cadastro excluído!');
+        return redirect('usuarios')->with('success', 'Excluído com sucesso!');
     }
 
 }

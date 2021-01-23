@@ -25,11 +25,15 @@
 
 <div class="form-row">
     <div class="col-sm-10 mb-3">
-        <label for="escola">{{ __('Escola') }}</label>
+        <label for="cod_esco">{{ __('Escola') }}</label>
         <select id="cod_esco" class="form-control @error('name') is-invalid @enderror" name="cod_esco" value="@if (isset($dados['usuario']->cod_esco)) {{ $dados['usuario']->cod_esco }} @endif">
             <option value="">Selecione a escola</option>
             @foreach ($dados['escola'] as $escola)
-                <option value="{{ $escola->cod_esco }}" @if ($dados['usuario']->cod_esco == $escola->cod_esco) selected="selected" @endif> {{ $escola->nome_fantasia }} </option>
+                @if(!$dados['usuario'])
+                    <option value="{{ $escola->cod_esco }}"> {{ $escola->nome_fantasia }} </option>
+                @else
+                    <option value="{{ $escola->cod_esco }}" @if ($dados['usuario']->cod_esco == $escola->cod_esco) selected="selected" @endif> {{ $escola->nome_fantasia }} </option>
+                @endif
             @endforeach
         </select>
         @error('cod_esco')
@@ -57,9 +61,12 @@
                 @enderror
             </div>
         </div>
-        <img id="img_avatar" src="data:image/png;base64, @if (isset($dados['usuario']->avatar)) {{ $dados['usuario']->avatar }} @endif" style="border: 1px solid #ddd; border-radius: 5px; height: 150px; float: left; margin: 10px 0px 0px 0px;">
+        @if($dados['usuario'])
+            <img id="img_avatar" src="data:image/png;base64, @if (isset($dados['usuario']->avatar)) {{ $dados['usuario']->avatar }} @endif" style="border: 1px solid #ddd; border-radius: 5px; height: 150px; float: left; margin: 10px 0px 0px 0px;">
+        @else
+            <img id="img_avatar" src="/logo_web.png" style="border: 1px solid #ddd; border-radius: 5px; height: 150px; float: left; margin: 10px 0px 0px 0px;">
+        @endif
     </div>
-
 </div>
 
 <div class="form-row">

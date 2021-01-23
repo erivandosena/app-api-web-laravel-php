@@ -56,6 +56,7 @@
             @else
                 <a class="navbar-brand active" href="{{ route('home') }}">{{ config('app.name', 'Laravel') }}<span class="sr-only">(current)</span></a>
 
+                <!-- menu topo funcoes -->
                 <div class="d-flex">
                     <div class="dropdown mr-1">
                     <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
@@ -68,58 +69,7 @@
                     </div>
                     </div>
                 </div>
-
-                <div class="d-flex">
-                    <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                        <i class="fa fa-graduation-cap fa-1x" aria-hidden="true"></i>
-                        {{ __('Cadastros') }}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" href="{{ route('listaAlunos', Auth::user()->cod_esco) }}">Alunos</a>
-                        <a class="dropdown-item" href="{{ route('matriculasGeral') }}">Matrículas</a>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                        <i class="fa fa-graduation-cap fa-1x" aria-hidden="true"></i>
-                        {{ __('Cadastros') }}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" href="{{ route('listaAlunos', Auth::user()->cod_esco) }}">Alunos</a>
-                        <a class="dropdown-item" href="{{ route('matriculasGeral') }}">Matrículas</a>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                        <i class="fa fa-graduation-cap fa-1x" aria-hidden="true"></i>
-                        {{ __('Cadastros') }}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" href="{{ route('listaAlunos', Auth::user()->cod_esco) }}">Alunos</a>
-                        <a class="dropdown-item" href="{{ route('matriculasGeral') }}">Matrículas</a>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="d-flex">
-                    <div class="dropdown mr-1">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">
-                        <i class="fa fa-graduation-cap fa-1x" aria-hidden="true"></i>
-                        {{ __('Cadastros') }}
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                        <a class="dropdown-item" href="{{ route('listaAlunos', Auth::user()->cod_esco) }}">Alunos</a>
-                        <a class="dropdown-item" href="{{ route('matriculasGeral') }}">Matrículas</a>
-                    </div>
-                    </div>
-                </div>
+                <!-- menu topo funcoes -->
 
             @endguest
             <!-- Authentication Links -->
@@ -177,3 +127,23 @@
             @endguest
         </div>
 </nav>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Confirmar exclusão</h4>
+            </div>
+            <div class="modal-body">
+                <p> Você está prestes a excluir o registro <b> <i class = "title"> </i> </b>, este procedimento é irreversível. </p>
+                <p> Deseja continuar? </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger btn-ok">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
